@@ -128,7 +128,7 @@ const Features = () => (
             </>
           }
           description="Saya adalah orang yang suka berpikir dengan menggunakan logika, selayaknya saya bermain game ini yang memerlukan logika dan timing."
-          isComingSoon
+          
         />
       </BentoTilt>
 
@@ -142,7 +142,7 @@ const Features = () => (
               </>
             }
             description="Saya mendapat banyak ilmu di PT Universal Big Data, banyak hal-hal yang penting diajarkan disini namun tidak diajarkan disekolah."
-            isComingSoon
+            
           />
         </BentoTilt>
 
@@ -156,7 +156,7 @@ const Features = () => (
               </>
             }
             description1="Saya belajar bahwa mental sepenting itu, terutama untuk menyelesaikan suatu tugas."
-            isComingSoon
+            
           />
         </BentoTilt>
 
@@ -169,17 +169,17 @@ const Features = () => (
               </>
             }
             description="Komunikasi juga tidak kalah pentig, tanpa komunikasi kita hanya akan menghambat pekerjaan tim."
-            isComingSoon
+       
           />
         </BentoTilt>
 
         <BentoTilt className="bento-tilt_2">
-          <div className="flex size-full flex-col justify-between bg-violet-300 p-5">
+          <div className="flex size-full flex-col justify-between bg-slate-400 p-5">
             <h1 className="bento-title special-font max-w-64 text-black">
-              M<b>o</b>re co<b>m</b>ing s<b>o</b>on.
+            co<b>m</b>ing s<b>o</b>on.
             </h1>
 
-            <TiLocationArrow className="m-5 scale-[5] self-end" />
+     
           </div>
         </BentoTilt>
 
