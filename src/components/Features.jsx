@@ -121,7 +121,7 @@ const Features = () => (
 
       <BentoTilt className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
         <BentoCard
-          src="videos/gamep-2.mp4"
+          src="videos/gamep-3.mp4"
           title={
             <>
               Ark<b>n</b>ights
