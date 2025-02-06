@@ -7,10 +7,18 @@ import { TiLocationArrow } from "react-icons/ti";
 import Button from "./Button";
 
 const navItems = ["Hero", "About", "Arknights", "Story", "Contact"];
+const musicTracks = [
+  { id: 1, title: "Arknigths - CC#4", src: "/audio/ak.mp3" },
+  { id: 2, title: "Garam N Madu", src: "/audio/gnm.mp3" },
+  { id: 3, title: "Cinema", src: "/audio/loop.mp3" },
+];
 
 const NavBar = () => {
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isIndicatorActive, setIsIndicatorActive] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState(null);
+  const [isMusicMenuVisible, setIsMusicMenuVisible] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const audioElementRef = useRef(null);
   const navContainerRef = useRef(null);
@@ -89,6 +97,20 @@ const NavBar = () => {
     }
   };
 
+  const handleMusicSelection = (track) => {
+    if (currentTrack && currentTrack !== track) {
+      audioElementRef.current.pause();
+    }
+    setCurrentTrack(track);
+    audioElementRef.current.src = track.src;
+    audioElementRef.current.play();
+    setIsMusicMenuVisible(false); // Hide menu after selecting a track
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
   return (
     <div 
       ref={navContainerRef}
@@ -100,7 +122,6 @@ const NavBar = () => {
             <Button
               id="product-button"
               title="2.Shinnra"
-              
               containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
             />
           </div>
@@ -119,32 +140,60 @@ const NavBar = () => {
               ))}
             </div>
 
+            {/* Hamburger Button */}
             <button
-              onClick={toggleAudioIndicator}
+              onClick={toggleMenu}
+              className="md:hidden text-white"
+            >
+              <span className="block w-6 h-1 bg-white mb-1"></span>
+              <span className="block w-6 h-1 bg-white mb-1"></span>
+              <span className="block w-6 h-1 bg-white"></span>
+            </button>
+
+            {/* Mobile Menu */}
+            {isMenuOpen && (
+              <div className="absolute top-16 right-0 bg-white shadow-lg p-4 rounded w-40">
+                {navItems.map((item, index) => (
+                  <a
+                    key={index}
+                    href={`#${item.toLowerCase()}`}
+                    className="block py-1 px-2 text-black hover:bg-gray-100"
+                    onClick={(e) => handleSmoothScroll(e, item.toLowerCase())}
+                  >
+                    {item}
+                  </a>
+                ))}
+              </div>
+            )}
+
+            <button
+              onClick={() => setIsMusicMenuVisible((prev) => !prev)}
               className="ml-10 flex items-center space-x-0.5"
             >
-              <audio
-                ref={audioElementRef}
-                className="hidden"
-                src="/audio/ak.mp3"
-
-                loop
-              />
-              {[1, 2, 3, 4].map((bar) => (
-                <div
-                  key={bar}
-                  className={clsx("indicator-line", {
-                    active: isIndicatorActive,
-                  })}
-                  style={{
-                    animationDelay: `${bar * 0.1}s`,
-                  }}
-                />
-              ))}
+              <p className="text-white uppercase font-general font-bold text-xl">m</p>
+              {isMusicMenuVisible && (
+                <div className="absolute top-12 right-0 bg-white shadow-lg p-2 rounded">
+                  {musicTracks.map((track) => (
+                    <div
+                      key={track.id}
+                      className="cursor-pointer py-1 px-2 hover:bg-gray-100"
+                      onClick={() => handleMusicSelection(track)}
+                    >
+                      {track.title}
+                    </div>
+                  ))}
+                </div>
+              )}
             </button>
           </div>
         </nav>
       </header>
+
+      <audio
+        ref={audioElementRef}
+        className="hidden"
+        loop
+      />
     </div>
   );
 };
